@@ -16,7 +16,7 @@ const LoginContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	width: 50%;
-	height: 500px;
+	height: 100%;
 	background-color: #fff;
 `;
 

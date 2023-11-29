@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -16,7 +17,7 @@ const RegisterContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	width: 50%;
-	height: 500px;
+	height: 100%;
 	background-color: #fff;
 `;
 
@@ -39,7 +40,7 @@ const IdInput = styled.input`
 	border: none;
 	border-bottom: 4px solid #ccc;
 	font-size: 28px;
-    font-weight: 600;
+	font-weight: 600;
 	padding: 10px;
 	margin: 24px;
 	width: 80%;
@@ -50,13 +51,15 @@ const IdInput = styled.input`
 		transition: 0.3s ease;
 	}
 
-    &::placeholder {
-        font-weight: 600;
-    }
+	&::placeholder {
+		font-weight: 600;
+	}
 `;
 
 const PasswordInputContainer = styled(IdInputContainer)``;
 const PasswordInput = styled(IdInput)``;
+const NicknameInputContainer = styled(IdInputContainer)``;
+const NicknameInput = styled(IdInput)``;
 
 const RegisterBtn = styled.button`
 	width: 80%;
@@ -92,6 +95,22 @@ const LoginNav = styled.div`
 
 const Register = () => {
 	const navigate = useNavigate();
+	const [id, setId] = useState('');
+	const [password, setPassword] = useState('');
+	const [nickname, setNickname] = useState('');
+
+	const idHandler = (e) => {
+		setId(e.target.value);
+	};
+
+	const passwordHandler = (e) => {
+		setPassword(e.target.value);
+	};
+
+	const nicknameHandler = (e) => {
+		setNickname(e.target.value);
+	};
+
 	return (
 		<Container>
 			<RegisterContainer>
@@ -102,6 +121,8 @@ const Register = () => {
 						placeholder='아이디 (4 ~ 10글자)'
 						minLength={4}
 						maxLength={10}
+						value={id}
+						onChange={idHandler}
 					/>
 				</IdInputContainer>
 				<PasswordInputContainer>
@@ -110,8 +131,20 @@ const Register = () => {
 						placeholder='비밀번호 (4 ~ 15글자)'
 						minLength={4}
 						maxLength={15}
+						value={password}
+						onChange={passwordHandler}
 					/>
 				</PasswordInputContainer>
+				<NicknameInputContainer>
+					<NicknameInput
+						type='text'
+						placeholder='닉네임 (1 ~ 10글자)'
+						minLength={1}
+						maxLength={10}
+						value={nickname}
+						onChange={nicknameHandler}
+					/>
+				</NicknameInputContainer>
 				<RegisterBtn>회원가입</RegisterBtn>
 				<LoginNav
 					onClick={() => {
