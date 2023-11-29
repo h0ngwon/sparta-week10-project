@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
-import { useDispatch } from "react-redux";
-import { addItem } from "redux/reducers/workout";
-import styled from "styled-components";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItem } from 'redux/modules/workout';
+import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 const Container = styled.div`
 	margin-top: 30px;
 	display: flex;
@@ -94,9 +94,9 @@ const Btn = styled.button`
 
 const Form = () => {
 	const dispatch = useDispatch();
-	const [nickname, setNickname] = useState("");
-	const [content, setContent] = useState("");
-	const [workout, setWorkout] = useState("스쿼트");
+	const [nickname, setNickname] = useState('');
+	const [content, setContent] = useState('');
+	const [workout, setWorkout] = useState('스쿼트');
 
 	const nicknameHandler = (e) => {
 		setNickname(e.target.value);
@@ -116,38 +116,37 @@ const Form = () => {
 		const data = {
 			createdAt: new Date().toISOString(),
 			nickname,
-			avatar: "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
+			avatar: 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
 			content,
 			writedTo: workout,
 			id: uuid(),
 		};
 
-		if (nickname.trim() === "") {
-			alert("Please enter a nickname");
+		if (nickname.trim() === '') {
+			alert('Please enter a nickname');
 			return;
 		}
 
-		if (content.trim() === "") {
-			alert("Please enter a content");
+		if (content.trim() === '') {
+			alert('Please enter a content');
 			return;
 		}
 
 		dispatch(addItem(data));
-        
-		setNickname("");
-		setContent("");
+
+		setNickname('');
+		setContent('');
 	};
 
-    
 	return (
 		<Container>
 			<NicknameContainer>
 				<NicknameLabel>닉네임 : </NicknameLabel>
 				<Nickname
 					value={nickname}
-					type="text"
+					type='text'
 					maxLength={20}
-					placeholder="20자 내로 입력"
+					placeholder='20자 내로 입력'
 					onChange={nicknameHandler}
 					autoFocus
 					required={true}
@@ -158,7 +157,7 @@ const Form = () => {
 				<ContentLabel>내용 : </ContentLabel>
 				<Content
 					value={content}
-					placeholder="40자 내로 입력"
+					placeholder='40자 내로 입력'
 					maxLength={40}
 					onChange={contentHandler}
 					required={true}
@@ -168,12 +167,12 @@ const Form = () => {
 			<SelectContainer>
 				<SelectLabel>운동 : </SelectLabel>
 				<Select onChange={workoutHandler} value={workout}>
-					<option value="스쿼트" defaultValue={workout}>
+					<option value='스쿼트' defaultValue={workout}>
 						스쿼트
 					</option>
-					<option value="벤치프레스">벤치프레스</option>
-					<option vlaue="데드리프트">데드리프트</option>
-					<option value="오버헤드프레스">오버헤드프레스</option>
+					<option value='벤치프레스'>벤치프레스</option>
+					<option vlaue='데드리프트'>데드리프트</option>
+					<option value='오버헤드프레스'>오버헤드프레스</option>
 				</Select>
 			</SelectContainer>
 

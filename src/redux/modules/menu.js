@@ -1,8 +1,8 @@
 //inital state
-const initialState = "스쿼트";
+const initialState = '스쿼트';
 
 //action values
-export const SELECT = "menu/SELECT";
+export const SELECT = 'menu/SELECT';
 
 //action creators
 export const select = (workout) => {
@@ -22,4 +22,4 @@ const menuReducer = (state = initialState, action) => {
 	}
 };
 
-export default menuReducer
+export default menuReducer;

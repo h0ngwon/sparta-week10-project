@@ -1,8 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import styled from "styled-components";
-
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Container = styled.div`
 	display: flex;
@@ -74,14 +72,13 @@ const DetailLink = styled(Link)`
 `;
 
 const FanLetters = () => {
-    const menuWorkout = useSelector(state => state.menuReducer);
-    const workoutData = useSelector(state => state.workoutReducer);
+	const menuWorkout = useSelector((state) => state.menuReducer);
+	const workoutData = useSelector((state) => state.workoutReducer);
 	const nothing = `${menuWorkout}를 하고싶은 사람이 없어요!`;
 
 	return (
 		<Container>
-			{workoutData.filter((w) => w.writedTo === menuWorkout)
-				.length > 0
+			{workoutData.filter((w) => w.writedTo === menuWorkout).length > 0
 				? workoutData
 						.filter((w) => w.writedTo === menuWorkout)
 						.map((w) => {
@@ -99,11 +96,11 @@ const FanLetters = () => {
 												{new Date(
 													w.createdAt
 												).toLocaleDateString(
-													"ko-KR"
-												)}{" "}
+													'ko-KR'
+												)}{' '}
 												{new Date(
 													w.createdAt
-												).toLocaleTimeString("ko-KR")}
+												).toLocaleTimeString('ko-KR')}
 											</CreatedTimeContainer>
 											<ContentContainer>
 												{w.content}

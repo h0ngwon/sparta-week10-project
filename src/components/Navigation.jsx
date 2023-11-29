@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { select } from "redux/reducers/menu";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { select } from 'redux/modules/menu';
+import styled from 'styled-components';
 
 const Container = styled.div`
 	width: 50%;
@@ -32,7 +32,7 @@ const List = styled.ul`
 
 const Navigation = () => {
 	const dispatch = useDispatch();
-	const workouts = ["스쿼트", "벤치프레스", "데드리프트", "오버헤드프레스"];
+	const workouts = ['스쿼트', '벤치프레스', '데드리프트', '오버헤드프레스'];
 	const [isActiveIdx, setIsActiveIdx] = useState(0);
 
 	const activeMenuHandler = (index) => {
@@ -47,7 +47,7 @@ const Navigation = () => {
 					<li
 						key={idx}
 						className={
-							isActiveIdx === idx ? "item selected" : "item"
+							isActiveIdx === idx ? 'item selected' : 'item'
 						}
 						onClick={() => activeMenuHandler(idx)}
 					>

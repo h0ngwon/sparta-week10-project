@@ -1,5 +1,4 @@
-import FanLetter from "components/FanLetter";
-import React from "react";
+import FanLetter from 'components/FanLetter';
 
 const Detail = () => {
 	return <FanLetter />;

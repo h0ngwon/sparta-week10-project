@@ -1,7 +1,6 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
-import workoutReducer from "redux/reducers/workout";
-import menuReducer from "redux/reducers/menu";
+import { combineReducers, createStore } from 'redux';
+import menuReducer from 'redux/modules/menu';
+import workoutReducer from 'redux/modules/workout';
 
 const rootReducer = combineReducers({ workoutReducer, menuReducer });
 const store = createStore(rootReducer);

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from "react-router-dom";
-import { deleteItem, modifyItem } from 'redux/reducers/workout';
-import styled from "styled-components";
+import { useNavigate, useParams } from 'react-router-dom';
+import { deleteItem, modifyItem } from 'redux/modules/workout';
+import styled from 'styled-components';
 
 const Container = styled.div`
 	display: flex;
@@ -130,8 +130,8 @@ const ConfirmBtn = styled(ModifyBtn)`
 `;
 
 const FanLetter = () => {
-    const dispatch = useDispatch();
-    const workoutData = useSelector(state => state.workoutReducer);
+	const dispatch = useDispatch();
+	const workoutData = useSelector((state) => state.workoutReducer);
 	const { id } = useParams();
 	const filteredData = workoutData.filter((w) => w.id === id)[0];
 	const [isModifyBtnClicked, setIsModifyBtnClicked] = useState(false);
@@ -149,12 +149,12 @@ const FanLetter = () => {
 	const navigate = useNavigate();
 
 	const navigateHandler = () => {
-		navigate("/");
+		navigate('/');
 	};
 
 	const deleteWorkoutHandler = (id) => {
-		if (window.confirm("삭제하시겠습니까?")) {
-            dispatch(deleteItem(id));
+		if (window.confirm('삭제하시겠습니까?')) {
+			dispatch(deleteItem(id));
 			navigateHandler();
 		}
 	};
@@ -168,17 +168,17 @@ const FanLetter = () => {
 	};
 
 	const textModifyConfirmHandler = (e) => {
-		if (window.confirm("수정하시겠습니까?")) {
-			if (modifyText.trim() === "") {
-				alert("내용을 채워주세요");
+		if (window.confirm('수정하시겠습니까?')) {
+			if (modifyText.trim() === '') {
+				alert('내용을 채워주세요');
 				return;
 			}
 			if (filteredData.content === modifyText) {
-				alert("변경된 내용이 없습니다.");
+				alert('변경된 내용이 없습니다.');
 				return;
 			}
 
-            dispatch(modifyItem(data));
+			dispatch(modifyItem(data));
 			setIsModifyBtnClicked(!isModifyBtnClicked);
 			navigateHandler();
 		}
@@ -197,10 +197,10 @@ const FanLetter = () => {
 					<Nickname>{filteredData.nickname}</Nickname>
 					<CreatedTime>
 						{new Date(filteredData.createdAt).toLocaleDateString(
-							"ko-KR"
-						)}{" "}
+							'ko-KR'
+						)}{' '}
 						{new Date(filteredData.createdAt).toLocaleTimeString(
-							"ko-KR"
+							'ko-KR'
 						)}
 					</CreatedTime>
 				</Header>
