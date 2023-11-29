@@ -1,0 +1,42 @@
+[
+	{
+		"createdAt": "2023-11-03T02:07:09.423Z",
+		"nickname": "Chris Bumstead",
+		"avatar": "https://www.essentiallysports.com/stories/bodybuilding-news-chris-bumstead-undergoes-medical-procedure-to-regain-his-best-health-as-he-prepares-to-defend-his-olympia-title/assets/6.png",
+		"content": "3대 운동중에 벤치프레스를 제외하고 데드리프트를 꽤 자주 하며 스쿼트도 이전보다 루틴에 자주 넣어서 하곤 한다.",
+		"writedTo": "스쿼트",
+		"id": "1"
+	},
+	{
+		"createdAt": "2023-11-02T23:13:18.491Z",
+		"nickname": "Ronald Dean Coleman",
+		"avatar": "https://image.fmkorea.com/files/attach/new2/20210924/3166658836/593376406/3937564197/901cc152e612d127c9ae6a86c970322c.png",
+		"content": "Yeah, buddy! Light weight, baby!",
+		"writedTo": "데드리프트",
+		"id": "2"
+	},
+	{
+		"createdAt": "2023-11-02T11:25:37.026Z",
+		"nickname": "Phillip Jerrod Heath",
+		"avatar": "https://historyofbodybuilding.com/wp-content/uploads/2017/08/philheath06b.png",
+		"content": "아무나 노력만 하면 천재(자신)를 이길 수 있다고 보나 봐요 타고난 사람이 노력까지 하니 이미 끝난 겁니다.",
+		"writedTo": "벤치프레스",
+		"id": "3"
+	},
+	{
+		"createdAt": "2023-11-02T16:06:34.150Z",
+		"nickname": "Sadik Hadzovic",
+		"avatar": "https://assets-global.website-files.com/6367f8198bef742a30d18cba/63ada7325d84be33c4049c0d_8B3QFcqnmbF2grkocHPG3vJk2cbTMq4ak0GX1V4fcjQ.png",
+		"content": "예~마~사딕입니다",
+		"writedTo": "오버헤드프레스",
+		"id": "4"
+	},
+	{
+		"createdAt": "2023-11-03T05:40:17.575Z",
+		"nickname": "Arnold Alois Schwarzenegger",
+		"avatar": "https://pnglib.nyc3.cdn.digitaloceanspaces.com/uploads/2021/02/arnold-schwarzenegger-shirtless-png_6024ed3e834f1.png",
+		"content": "흔들리는 것이 있다면 그건 전부 지방이다.",
+		"writedTo": "스쿼트",
+		"id": "5"
+	}
+]
