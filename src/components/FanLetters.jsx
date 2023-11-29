@@ -72,8 +72,8 @@ const DetailLink = styled(Link)`
 `;
 
 const FanLetters = () => {
-	const menuWorkout = useSelector((state) => state.menuReducer);
-	const workoutData = useSelector((state) => state.workoutReducer);
+	const menuWorkout = useSelector((state) => state.menu);
+	const workoutData = useSelector((state) => state.workout);
 	const nothing = `${menuWorkout}를 하고싶은 사람이 없어요!`;
 
 	return (

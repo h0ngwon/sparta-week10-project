@@ -1,25 +1,19 @@
+import { createSlice } from '@reduxjs/toolkit';
+
 //inital state
 const initialState = '스쿼트';
 
-//action values
-export const SELECT = 'menu/SELECT';
-
-//action creators
-export const select = (workout) => {
-	return {
-		type: SELECT,
-		payload: workout,
-	};
-};
-
-const menuReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case SELECT:
+export const menuSlice = createSlice({
+	name: 'menu',
+	initialState,
+	reducers: {
+		select: (state, action) => {
 			return (state = action.payload);
+		},
+	},
+});
 
-		default:
-			return state;
-	}
-};
 
-export default menuReducer;
+
+export default menuSlice.reducer;
+export const menuActions = menuSlice.actions;

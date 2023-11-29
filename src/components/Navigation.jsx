@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { select } from 'redux/modules/menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { menuActions } from 'redux/modules/menu';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -37,7 +37,7 @@ const Navigation = () => {
 
 	const activeMenuHandler = (index) => {
 		setIsActiveIdx(index);
-		dispatch(select(workouts[index]));
+		dispatch(menuActions.select(workouts[index]));
 	};
 
 	return (
