@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -14,6 +14,7 @@ const LoginContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	width: 50%;
 	height: 500px;
 	background-color: #fff;
@@ -21,6 +22,7 @@ const LoginContainer = styled.div`
 
 const LoginHeader = styled.div`
 	font-size: 50px;
+	font-weight: 700;
 	border-radius: 24px;
 	padding: 30px;
 	width: 100%;
@@ -28,6 +30,8 @@ const LoginHeader = styled.div`
 
 const IdInputContainer = styled.div`
 	width: 100%;
+	display: flex;
+	justify-content: center;
 `;
 
 const IdInput = styled.input`
@@ -37,7 +41,7 @@ const IdInput = styled.input`
 	font-size: 28px;
 	padding: 10px;
 	margin: 24px;
-	width: 600px;
+	width: 80%;
 	transition: 0.3s ease;
 
 	&:focus {
@@ -52,6 +56,7 @@ const PasswordInput = styled(IdInput)``;
 const LoginBtn = styled.button`
 	width: 80%;
 	font-size: 36px;
+	font-weight: 700;
 	padding: 20px;
 	margin: 20px;
 	border-radius: 24px;
@@ -67,16 +72,16 @@ const LoginBtn = styled.button`
 const RegisterNav = styled.div`
 	text-align: center;
 	font-size: 24px;
-	font-weight: bold;
+	font-weight: 700;
 	cursor: pointer;
-    transition: 0.2s ease;
-    padding: 12px;
-    border-radius: 12px;
+	transition: 0.2s ease;
+	padding: 12px;
+	border-radius: 12px;
 
 	&:hover {
-        background-color: #5c8ded;
-        color:white;
-        transition: 0.2s ease;
+		background-color: #5c8ded;
+		color: white;
+		transition: 0.2s ease;
 	}
 `;
 
