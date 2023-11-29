@@ -39,6 +39,7 @@ const IdInput = styled.input`
 	border: none;
 	border-bottom: 4px solid #ccc;
 	font-size: 28px;
+    font-weight: 600;
 	padding: 10px;
 	margin: 24px;
 	width: 80%;
@@ -48,6 +49,9 @@ const IdInput = styled.input`
 		border-color: #5c8ded;
 		transition: 0.3s ease;
 	}
+    &::placeholder{
+        font-weight: 600;
+    }
 `;
 
 const PasswordInputContainer = styled(IdInputContainer)``;
