@@ -95,7 +95,6 @@ const RegisterNav = styled.div`
 `;
 
 const Login = () => {
-	const isLogin = useSelector((state) => state.auth);
 	const repository = localStorage;
 	const [id, setId] = useState('');
 	const [password, setPassword] = useState('');

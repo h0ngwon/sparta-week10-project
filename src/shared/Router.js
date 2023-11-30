@@ -9,7 +9,6 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 const Router = () => {
 	const isLogin = useSelector((state) => state.auth.isLogin);
-	console.log(isLogin);
 
 	return (
 		<BrowserRouter>
