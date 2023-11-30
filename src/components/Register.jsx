@@ -129,7 +129,7 @@ const Register = () => {
 				userInfo
 			);
 			toast.success(data.message);
-            navigate('/login')
+			navigate('/login');
 		} catch (error) {
 			const { response } = error;
 			toast.error(response.data.message);

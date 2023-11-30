@@ -12,6 +12,7 @@ const Container = styled.div`
 `;
 
 const Home = () => {
+    
 	return (
 		<Container>
 			<Header />

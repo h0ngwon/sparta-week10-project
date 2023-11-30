@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { authActions } from 'redux/modules/auth';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -93,9 +95,11 @@ const RegisterNav = styled.div`
 `;
 
 const Login = () => {
+	const isLogin = useSelector((state) => state.auth);
+	const repository = localStorage;
 	const [id, setId] = useState('');
 	const [password, setPassword] = useState('');
-
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const idHandler = (e) => {
@@ -119,11 +123,15 @@ const Login = () => {
 				'https://moneyfulpublicpolicy.co.kr/login',
 				userInfo
 			);
-            toast.success('로그인되었습니다!');
-            navigate('/')
+			toast.success('로그인되었습니다!');
+			repository.setItem('accessToken', data.accessToken);
+			dispatch(authActions.login());
+			navigate('/');
 		} catch (error) {
-			const {response} = error;
-            toast.error(response.data.message);
+			const { response } = error;
+			const { data } = response;
+			const { message } = data;
+			toast.error(message);
 		}
 	};
 	return (
