@@ -1,5 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { __getComments } from 'redux/modules/workout';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -72,14 +74,21 @@ const DetailLink = styled(Link)`
 `;
 
 const FanLetters = () => {
+    const dispatch = useDispatch();
 	const menuWorkout = useSelector((state) => state.menu);
-	const workoutData = useSelector((state) => state.workout);
-	const nothing = `${menuWorkout}를 하고싶은 사람이 없어요!`;
+	const { comments, isLoading, error } = useSelector(
+		(state) => state.workout
+	);
 
+    useEffect(() => {
+        dispatch(__getComments());
+    },[])
+    
+	const nothing = `${menuWorkout}를 하고싶은 사람이 없어요!`;
 	return (
 		<Container>
-			{workoutData.filter((w) => w.writedTo === menuWorkout).length > 0
-				? workoutData
+			{comments.filter((w) => w.writedTo === menuWorkout).length > 0
+				? comments
 						.filter((w) => w.writedTo === menuWorkout)
 						.map((w) => {
 							return (

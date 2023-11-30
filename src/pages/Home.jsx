@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { userActions } from 'redux/modules/user';
+import { __getComments, workoutActions } from 'redux/modules/workout';
 
 const Container = styled.div`
 	display: flex;
