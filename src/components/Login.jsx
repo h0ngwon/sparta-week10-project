@@ -1,4 +1,7 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -10,7 +13,7 @@ const Container = styled.div`
 	background-color: #7d8491;
 `;
 
-const LoginContainer = styled.div`
+const LoginContainer = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -39,7 +42,7 @@ const IdInput = styled.input`
 	border: none;
 	border-bottom: 4px solid #ccc;
 	font-size: 28px;
-    font-weight: 600;
+	font-weight: 600;
 	padding: 10px;
 	margin: 24px;
 	width: 80%;
@@ -49,9 +52,9 @@ const IdInput = styled.input`
 		border-color: #5c8ded;
 		transition: 0.3s ease;
 	}
-    &::placeholder{
-        font-weight: 600;
-    }
+	&::placeholder {
+		font-weight: 600;
+	}
 `;
 
 const PasswordInputContainer = styled(IdInputContainer)``;
@@ -90,10 +93,42 @@ const RegisterNav = styled.div`
 `;
 
 const Login = () => {
+	const [id, setId] = useState('');
+	const [password, setPassword] = useState('');
+
 	const navigate = useNavigate();
+
+	const idHandler = (e) => {
+		setId(e.target.value);
+	};
+
+	const passwordHandler = (e) => {
+		setPassword(e.target.value);
+	};
+
+	const login = async (e) => {
+		e.preventDefault();
+
+		const userInfo = {
+			id,
+			password,
+		};
+
+		try {
+			const { data } = await axios.post(
+				'https://moneyfulpublicpolicy.co.kr/login',
+				userInfo
+			);
+            toast.success('로그인되었습니다!');
+            navigate('/')
+		} catch (error) {
+			const {response} = error;
+            toast.error(response.data.message);
+		}
+	};
 	return (
 		<Container>
-			<LoginContainer>
+			<LoginContainer onSubmit={login}>
 				<LoginHeader>로그인</LoginHeader>
 				<IdInputContainer>
 					<IdInput
@@ -101,6 +136,8 @@ const Login = () => {
 						placeholder='아이디 (4 ~ 10글자)'
 						minLength={4}
 						maxLength={10}
+						value={id}
+						onChange={idHandler}
 					/>
 				</IdInputContainer>
 				<PasswordInputContainer>
@@ -109,6 +146,8 @@ const Login = () => {
 						placeholder='비밀번호 (4 ~ 15글자)'
 						minLength={4}
 						maxLength={15}
+						value={password}
+						onChange={passwordHandler}
 					/>
 				</PasswordInputContainer>
 				<LoginBtn>로그인</LoginBtn>
