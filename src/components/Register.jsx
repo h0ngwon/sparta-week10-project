@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
 	display: flex;
@@ -11,7 +15,7 @@ const Container = styled.div`
 	background-color: #7d8491;
 `;
 
-const RegisterContainer = styled.div`
+const RegisterContainer = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -111,50 +115,82 @@ const Register = () => {
 		setNickname(e.target.value);
 	};
 
+	const submitHandler = async (e) => {
+		e.preventDefault();
+		const userInfo = {
+			id,
+			password,
+			nickname,
+		};
+		try {
+			const {data} = await axios.post(
+				'https://moneyfulpublicpolicy.co.kr/register',
+				userInfo
+			);
+			toast.success(data.message);
+		} catch (error) {
+			toast.error(error.response.data.message);
+		}
+	};
+
 	return (
-		<Container>
-			<RegisterContainer>
-				<RegisterHeader>회원가입</RegisterHeader>
-				<IdInputContainer>
-					<IdInput
-						type='text'
-						placeholder='아이디 (4 ~ 10글자)'
-						minLength={4}
-						maxLength={10}
-						value={id}
-						onChange={idHandler}
-					/>
-				</IdInputContainer>
-				<PasswordInputContainer>
-					<PasswordInput
-						type='password'
-						placeholder='비밀번호 (4 ~ 15글자)'
-						minLength={4}
-						maxLength={15}
-						value={password}
-						onChange={passwordHandler}
-					/>
-				</PasswordInputContainer>
-				<NicknameInputContainer>
-					<NicknameInput
-						type='text'
-						placeholder='닉네임 (1 ~ 10글자)'
-						minLength={1}
-						maxLength={10}
-						value={nickname}
-						onChange={nicknameHandler}
-					/>
-				</NicknameInputContainer>
-				<RegisterBtn>회원가입</RegisterBtn>
-				<LoginNav
-					onClick={() => {
-						navigate('/login');
-					}}
-				>
-					로그인
-				</LoginNav>
-			</RegisterContainer>
-		</Container>
+		<>
+			<ToastContainer
+				position='top-center'
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme='light'
+			/>
+			<Container>
+				<RegisterContainer onSubmit={submitHandler}>
+					<RegisterHeader>회원가입</RegisterHeader>
+					<IdInputContainer>
+						<IdInput
+							type='text'
+							placeholder='아이디 (4 ~ 10글자)'
+							minLength={4}
+							maxLength={10}
+							value={id}
+							onChange={idHandler}
+						/>
+					</IdInputContainer>
+					<PasswordInputContainer>
+						<PasswordInput
+							type='password'
+							placeholder='비밀번호 (4 ~ 15글자)'
+							minLength={4}
+							maxLength={15}
+							value={password}
+							onChange={passwordHandler}
+						/>
+					</PasswordInputContainer>
+					<NicknameInputContainer>
+						<NicknameInput
+							type='text'
+							placeholder='닉네임 (1 ~ 10글자)'
+							minLength={1}
+							maxLength={10}
+							value={nickname}
+							onChange={nicknameHandler}
+						/>
+					</NicknameInputContainer>
+					<RegisterBtn>회원가입</RegisterBtn>
+					<LoginNav
+						onClick={() => {
+							navigate('/login');
+						}}
+					>
+						로그인
+					</LoginNav>
+				</RegisterContainer>
+			</Container>
+		</>
 	);
 };
 
