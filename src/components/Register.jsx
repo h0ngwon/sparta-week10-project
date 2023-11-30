@@ -123,13 +123,14 @@ const Register = () => {
 			nickname,
 		};
 		try {
-			const {data} = await axios.post(
+			const { data } = await axios.post(
 				'https://moneyfulpublicpolicy.co.kr/register',
 				userInfo
 			);
 			toast.success(data.message);
 		} catch (error) {
-			toast.error(error.response.data.message);
+			const { response } = error;
+			toast.error(response.data.message);
 		}
 	};
 
