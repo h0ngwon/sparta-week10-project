@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { workoutActions } from 'redux/modules/workout';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';

@@ -1,13 +1,12 @@
+import axios from 'axios';
 import FanLetters from 'components/FanLetters';
 import Form from 'components/Form';
 import Header from 'components/Header';
 import Navigation from 'components/Navigation';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { userActions } from 'redux/modules/user';
-import { __getComments, workoutActions } from 'redux/modules/workout';
+import styled from 'styled-components';
 
 const Container = styled.div`
 	display: flex;
