@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { workoutActions } from 'redux/modules/workout';
+import { useDispatch, useSelector } from 'react-redux';
+import { __addComments, workoutActions } from 'redux/modules/workout';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
@@ -29,7 +29,9 @@ const NicknameLabel = styled.label`
 	color: white;
 `;
 
-const Nickname = styled.input`
+const Nickname = styled.div`
+    color: white;
+    font-weight: 700;
 	font-size: 20px;
 	padding: 20px;
 	border-radius: 20px;
@@ -95,13 +97,10 @@ const Btn = styled.button`
 
 const Form = () => {
 	const dispatch = useDispatch();
-	const [nickname, setNickname] = useState('');
+	const nickname = useSelector(state => state.user.nickname);
+    const id = useSelector(state => state.user.id);
 	const [content, setContent] = useState('');
 	const [workout, setWorkout] = useState('스쿼트');
-
-	const nicknameHandler = (e) => {
-		setNickname(e.target.value);
-	};
 
 	const contentHandler = (e) => {
 		setContent(e.target.value);
@@ -121,21 +120,15 @@ const Form = () => {
 			content,
 			writedTo: workout,
 			id: uuid(),
+            userId: id,
 		};
-
-		if (nickname.trim() === '') {
-			alert('Please enter a nickname');
-			return;
-		}
 
 		if (content.trim() === '') {
 			alert('Please enter a content');
 			return;
 		}
 
-		dispatch(workoutActions.add(data));
-
-		setNickname('');
+		dispatch(__addComments(data));
 		setContent('');
 	};
 
@@ -143,15 +136,7 @@ const Form = () => {
 		<Container>
 			<NicknameContainer>
 				<NicknameLabel>닉네임 : </NicknameLabel>
-				<Nickname
-					value={nickname}
-					type='text'
-					maxLength={20}
-					placeholder='20자 내로 입력'
-					onChange={nicknameHandler}
-					autoFocus
-					required={true}
-				></Nickname>
+				<Nickname>{nickname}</Nickname>
 			</NicknameContainer>
 
 			<ContentContainer>

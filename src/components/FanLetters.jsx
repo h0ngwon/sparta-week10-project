@@ -84,6 +84,9 @@ const FanLetters = () => {
 		dispatch(__getComments());
 	}, []);
 
+    const data = useSelector(state => state.workout.comments);
+    console.log(data);
+
 	const nothing = `${menuWorkout}를 하고싶은 사람이 없어요!`;
 	return (
 		<Container>
