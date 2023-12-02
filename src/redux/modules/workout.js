@@ -11,9 +11,9 @@ const initialState = {
 
 export const __getComments = createAsyncThunk(
 	'workout/getComments',
-	async (payload, thunkAPI) => {
+	async (_, thunkAPI) => {
 		try {
-			const res = await axios.get('http://localhost:4000/comments');
+			const res = await axios.get('http://localhost:4000/comments?_sort=createdAt&_order=desc');
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
@@ -26,7 +26,6 @@ export const __addComments = createAsyncThunk(
 	async (payload, thunkAPI) => {
 		try {
 			const res = await axios.post('http://localhost:4000/comments', payload);
-            console.log(res.data);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
@@ -54,7 +53,7 @@ const workoutSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(__getComments.pending, (state, action) => {
+			.addCase(__getComments.pending, (state, _) => {
 				state.isLoading = true;
 			})
 			.addCase(__getComments.fulfilled, (state, action) => {
@@ -65,7 +64,7 @@ const workoutSlice = createSlice({
 				state.isLoading = false;
 				state.error = action.payload;
 			})
-			.addCase(__addComments.pending, (state, action) => {
+			.addCase(__addComments.pending, (state, _) => {
 				state.isLoading = true;
 			})
 			.addCase(__addComments.fulfilled, (state, action) => {
