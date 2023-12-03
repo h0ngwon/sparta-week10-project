@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { __addComment } from 'redux/modules/workout';
+import { __addComment, __getComments } from 'redux/modules/workout';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
@@ -129,6 +129,7 @@ const Form = () => {
 		}
 
 		dispatch(__addComment(data));
+        dispatch(__getComments());
 		setContent('');
 	};
 
