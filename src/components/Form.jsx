@@ -97,7 +97,7 @@ const Btn = styled.button`
 
 const Form = () => {
 	const dispatch = useDispatch();
-	const nickname = useSelector((state) => state.user.nickname);
+    const {nickname, avatar} = useSelector(state => state.user);
 	const id = useSelector((state) => state.user.id);
 	const [content, setContent] = useState('');
 	const [workout, setWorkout] = useState('스쿼트');
@@ -116,7 +116,7 @@ const Form = () => {
 		const data = {
 			createdAt: new Date().toISOString(),
 			nickname,
-			avatar: 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
+			avatar: avatar || 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
 			content,
 			writedTo: workout,
 			id: uuid(),

@@ -121,10 +121,10 @@ const Login = () => {
 			await axios
 				.post('https://moneyfulpublicpolicy.co.kr/login', userInfo)
 				.then((res) => {
-					toast.success('로그인되었습니다!');
 					repository.removeItem('accessToken');
 					repository.setItem('accessToken', res.data.accessToken);
 					dispatch(authActions.login());
+                    toast.success('로그인되었습니다!');
 					navigate('/');
 				});
 		} catch (error) {

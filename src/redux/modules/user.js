@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { toastError } from './workout';
 
 const initialState = {
 	accessToken: null,
@@ -16,7 +15,7 @@ const BASE_URL = 'https://moneyfulpublicpolicy.co.kr';
 
 export const __getUserInfo = createAsyncThunk(
 	'user/getUserInfo',
-	async (state, thunkAPI) => {
+	async (_, thunkAPI) => {
 		try {
 			const res = await axios.get(`${BASE_URL}/user`, {
 				headers: {
@@ -49,7 +48,6 @@ export const __modifyProfile = createAsyncThunk(
 					)}`,
 				},
 			});
-			console.log(res.data);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
@@ -61,27 +59,28 @@ const user = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		getUserInfo: (_, action) => {
-			return {
-				accessToken: action.payload.accessToken,
-				id: action.payload.id,
-				nickname: action.payload.nickname,
-				avatar: action.payload.avatar,
-			};
-		},
 	},
 
 	extraReducers: (builder) => {
 		builder
+			.addCase(__getUserInfo.pending, (state, _) => {
+				state.isLoading = true;
+			})
+            .addCase(__getUserInfo.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.avatar = action.payload.avatar;
+                state.nickname = action.payload.nickname;
+                state.id = action.payload.id;
+            })
+            .addCase(__getUserInfo.rejected, (state, action) => {
+                state.error = action.payload;
+            })
 			.addCase(__modifyProfile.pending, (state, _) => {
 				state.isLoading = true;
 			})
 			.addCase(__modifyProfile.fulfilled, (state, action) => {
-				const repository = localStorage;
-				state.accessToken = repository.getItem('accessToken');
 				state.nickname = action.payload.nickname;
 				state.avatar = action.payload.avatar;
-				console.log();
 			})
 			.addCase(__modifyProfile.rejected, (state, action) => {
 				state.error = action.payload;

@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { authActions } from 'redux/modules/auth';
 
 const Container = styled.div`
 	width: 100%;
@@ -31,7 +33,13 @@ const MenuItem = styled.li`
 `;
 
 const Nav = () => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const logout = () => {
+		localStorage.removeItem('accessToken');
+		dispatch(authActions.logout());
+		navigate('/login');
+	};
 
 	return (
 		<Container>
@@ -50,7 +58,7 @@ const Nav = () => {
 				>
 					내 프로필
 				</MenuItem>
-				<MenuItem>로그아웃</MenuItem>
+				<MenuItem onClick={logout}>로그아웃</MenuItem>
 			</Menu>
 		</Container>
 	);

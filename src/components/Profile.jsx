@@ -1,12 +1,8 @@
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	__getUserInfo,
-	__modifyProfile,
-	userActions,
-} from 'redux/modules/user';
-import styled from 'styled-components';
 import { toast } from 'react-toastify';
+import { __getUserInfo, __modifyProfile } from 'redux/modules/user';
+import styled from 'styled-components';
 
 const Container = styled.div`
 	display: flex;
@@ -129,7 +125,7 @@ const Profile = () => {
 	const onFileUpload = (e) => {
 		if (!e.target.files[0]) return;
 		setPreview(URL.createObjectURL(e.target.files[0]));
-        setFile(e.target.files[0]);
+		setFile(e.target.files[0]);
 	};
 
 	const refClickHandler = () => {
