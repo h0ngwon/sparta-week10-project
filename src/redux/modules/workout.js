@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 //inital state
 
@@ -7,6 +8,13 @@ const initialState = {
 	comments: [],
 	isLoading: false,
 	error: null,
+};
+
+export const toastError = (error) => {
+	const { response } = error;
+	const { data } = response;
+	const { message } = data;
+	toast.error(message);
 };
 
 export const __getComments = createAsyncThunk(
@@ -18,6 +26,7 @@ export const __getComments = createAsyncThunk(
 			);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
+			toastError(error);
 			return thunkAPI.rejectWithValue(error);
 		}
 	}
@@ -33,6 +42,7 @@ export const __addComment = createAsyncThunk(
 			);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
+            toastError(error);
 			return thunkAPI.rejectWithValue(error);
 		}
 	}
@@ -47,6 +57,7 @@ export const __deleteComment = createAsyncThunk(
 			);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
+            toastError(error)
 			return thunkAPI.rejectWithValue(error);
 		}
 	}
@@ -62,6 +73,7 @@ export const __modifyComment = createAsyncThunk(
 			);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
+            toastError(error);
 			return thunkAPI.rejectWithValue(error);
 		}
 	}

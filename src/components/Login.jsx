@@ -118,16 +118,15 @@ const Login = () => {
 		};
 
 		try {
-			const { data } = await axios.post(
-				'https://moneyfulpublicpolicy.co.kr/login',
-				userInfo
-			);
-			toast.success('로그인되었습니다!');
-            repository.removeItem('accessToken');
-			repository.setItem('accessToken', data.accessToken);
-			dispatch(authActions.login());
-            navigate('/')
-			
+			await axios
+				.post('https://moneyfulpublicpolicy.co.kr/login', userInfo)
+				.then((res) => {
+					toast.success('로그인되었습니다!');
+					repository.removeItem('accessToken');
+					repository.setItem('accessToken', res.data.accessToken);
+					dispatch(authActions.login());
+					navigate('/');
+				});
 		} catch (error) {
 			const { response } = error;
 			const { data } = response;
