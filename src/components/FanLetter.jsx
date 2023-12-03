@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { workoutActions } from 'redux/modules/workout';
+import { __deleteComment, __modifyComment } from 'redux/modules/workout';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -132,7 +132,6 @@ const ConfirmBtn = styled(ModifyBtn)`
 const FanLetter = () => {
 	const dispatch = useDispatch();
 	const workoutData = useSelector((state) => state.workout.comments);
-    console.log(workoutData);
 	const { id } = useParams();
 	const filteredData = workoutData.filter((w) => w.id === id)[0];
 	const [isModifyBtnClicked, setIsModifyBtnClicked] = useState(false);
@@ -155,7 +154,7 @@ const FanLetter = () => {
 
 	const deleteWorkoutHandler = (id) => {
 		if (window.confirm('삭제하시겠습니까?')) {
-			dispatch(workoutActions.delete(id));
+			dispatch(__deleteComment(id));
 			navigateHandler();
 		}
 	};
@@ -179,7 +178,7 @@ const FanLetter = () => {
 				return;
 			}
 
-			dispatch(workoutActions.modify(data));
+			dispatch(__modifyComment(data));
 			setIsModifyBtnClicked(!isModifyBtnClicked);
 			navigateHandler();
 		}

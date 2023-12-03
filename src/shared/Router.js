@@ -16,7 +16,6 @@ const Router = () => {
 
 	const checkToken = () => {
 		if (repository.getItem('accessToken')) {
-            console.log(repository.getItem('accessToken'))
 			dispatch(authActions.login());
 		}
 	};
