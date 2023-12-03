@@ -76,16 +76,13 @@ const DetailLink = styled(Link)`
 const FanLetters = () => {
 	const dispatch = useDispatch();
 	const menuWorkout = useSelector((state) => state.menu);
-	const { comments, isLoading, error } = useSelector(
+	const { comments } = useSelector(
 		(state) => state.workout
 	);
 
 	useEffect(() => {
 		dispatch(__getComments());
 	}, []);
-
-    const data = useSelector(state => state.workout.comments);
-    console.log(data);
 
 	const nothing = `${menuWorkout}를 하고싶은 사람이 없어요!`;
 	return (

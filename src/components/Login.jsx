@@ -123,9 +123,11 @@ const Login = () => {
 				userInfo
 			);
 			toast.success('로그인되었습니다!');
+            repository.removeItem('accessToken');
 			repository.setItem('accessToken', data.accessToken);
 			dispatch(authActions.login());
-			navigate('/');
+            navigate('/')
+			
 		} catch (error) {
 			const { response } = error;
 			const { data } = response;

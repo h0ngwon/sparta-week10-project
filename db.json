@@ -44,24 +44,6 @@
       "writedTo": "스쿼트",
       "id": "5",
       "userId": "test"
-    },
-    {
-      "createdAt": "2023-12-02T09:05:15.641Z",
-      "nickname": "hhwooon",
-      "avatar": "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
-      "content": "test",
-      "writedTo": "스쿼트",
-      "id": "86288a9b-c995-4f80-909e-a7470dbdb686",
-      "userId": "hhwooon"
-    },
-    {
-      "createdAt": "2023-12-02T09:20:30.792Z",
-      "nickname": "hhwooon",
-      "avatar": "https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg",
-      "content": "tttt",
-      "writedTo": "스쿼트",
-      "id": "d2f43086-8c3e-49b5-a80c-8a9fb47511e4",
-      "userId": "hhwooon"
     }
   ]
 }

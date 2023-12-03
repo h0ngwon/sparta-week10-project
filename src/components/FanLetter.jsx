@@ -131,7 +131,8 @@ const ConfirmBtn = styled(ModifyBtn)`
 
 const FanLetter = () => {
 	const dispatch = useDispatch();
-	const workoutData = useSelector((state) => state.workout);
+	const workoutData = useSelector((state) => state.workout.comments);
+    console.log(workoutData);
 	const { id } = useParams();
 	const filteredData = workoutData.filter((w) => w.id === id)[0];
 	const [isModifyBtnClicked, setIsModifyBtnClicked] = useState(false);

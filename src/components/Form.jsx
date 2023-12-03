@@ -30,8 +30,8 @@ const NicknameLabel = styled.label`
 `;
 
 const Nickname = styled.div`
-    color: white;
-    font-weight: 700;
+	color: white;
+	font-weight: 700;
 	font-size: 20px;
 	padding: 20px;
 	border-radius: 20px;
@@ -97,8 +97,8 @@ const Btn = styled.button`
 
 const Form = () => {
 	const dispatch = useDispatch();
-	const nickname = useSelector(state => state.user.nickname);
-    const id = useSelector(state => state.user.id);
+	const nickname = useSelector((state) => state.user.nickname);
+	const id = useSelector((state) => state.user.id);
 	const [content, setContent] = useState('');
 	const [workout, setWorkout] = useState('스쿼트');
 
@@ -120,7 +120,7 @@ const Form = () => {
 			content,
 			writedTo: workout,
 			id: uuid(),
-            userId: id,
+			userId: id,
 		};
 
 		if (content.trim() === '') {
@@ -131,7 +131,7 @@ const Form = () => {
 		dispatch(__addComments(data));
 		setContent('');
 	};
-
+    
 	return (
 		<Container>
 			<NicknameContainer>
