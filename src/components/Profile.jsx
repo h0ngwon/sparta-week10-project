@@ -59,7 +59,7 @@ const UserId = styled.div`
 `;
 
 const ModifyBtn = styled.button`
-	width: 100%;
+	width: 50%;
 	color: white;
 	font-size: 24px;
 	font-weight: bold;
@@ -67,12 +67,38 @@ const ModifyBtn = styled.button`
 	background-color: black;
 	border: none;
 	padding: 20px;
+    cursor: pointer;
+    margin: 10px;
+
+    &:hover {
+        background-color: #76a3ad;
+    }
+`;
+
+const ButtonContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const ButtonsContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	width: 100%;
+    gap: 12px;
+`;
+const CancelModifyBtn = styled(ModifyBtn)`
+    background-color: #ccc;
+`;
+const CompleteModifyBtn = styled(ModifyBtn)`
 `;
 
 const Profile = () => {
 	const nickname = useSelector((state) => state.user.nickname);
 	const id = useSelector((state) => state.user.id);
-
+	const [isModify, setIsModify] = useState(false);
 	const [file, setFile] = useState(
 		'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg'
 	);
@@ -85,6 +111,14 @@ const Profile = () => {
 
 	const refClickHandler = () => {
 		imageRef.current.click();
+	};
+
+	const modifyBtnHandler = () => {
+		setIsModify(true);
+	};
+
+	const cancelModifyBtnHandler = () => {
+		setIsModify(false);
 	};
 
 	return (
@@ -103,9 +137,20 @@ const Profile = () => {
 				</ProfileImageContainer>
 				<UserNickname>닉네임 : {nickname}</UserNickname>
 				<UserId>{id}</UserId>
-				<div>
-					<ModifyBtn>수정하기</ModifyBtn>
-				</div>
+				<ButtonContainer>
+					{isModify ? (
+						<ButtonsContainer>
+							<CancelModifyBtn onClick={cancelModifyBtnHandler}>
+								취소
+							</CancelModifyBtn>
+							<CompleteModifyBtn>수정완료</CompleteModifyBtn>
+						</ButtonsContainer>
+					) : (
+						<ModifyBtn onClick={modifyBtnHandler}>
+							수정하기
+						</ModifyBtn>
+					)}
+				</ButtonContainer>
 			</ProfileContainer>
 		</Container>
 	);
