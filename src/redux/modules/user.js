@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { authApi } from 'api/apis';
 import axios from 'axios';
 
 const initialState = {
@@ -32,28 +33,7 @@ export const __getUserInfo = createAsyncThunk(
 	}
 );
 
-export const __modifyProfile = createAsyncThunk(
-	'user/modifyProfile',
-	async (payload, thunkAPI) => {
-		const formData = new FormData();
-		formData.append('avatar', payload.file);
-		formData.append('nickname', payload.modifyNickname);
 
-		try {
-			const res = await axios.patch(`${BASE_URL}/profile`, formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-					Authorization: `Bearer ${repository.getItem(
-						'accessToken'
-					)}`,
-				},
-			});
-			return thunkAPI.fulfillWithValue(res.data);
-		} catch (error) {
-			return thunkAPI.rejectWithValue(error);
-		}
-	}
-);
 
 const user = createSlice({
 	name: 'user',
@@ -74,17 +54,6 @@ const user = createSlice({
 			.addCase(__getUserInfo.rejected, (state, action) => {
 				state.error = action.payload;
 			})
-			.addCase(__modifyProfile.pending, (state, _) => {
-				state.isLoading = true;
-			})
-			.addCase(__modifyProfile.fulfilled, (state, action) => {
-				state.nickname = action.payload.nickname;
-				state.avatar = action.payload.avatar;
-				
-			})
-			.addCase(__modifyProfile.rejected, (state, action) => {
-				state.error = action.payload;
-			});
 	},
 });
 

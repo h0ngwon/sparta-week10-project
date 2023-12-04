@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { __deleteComment, __modifyComment } from 'redux/modules/workout';
+import {
+	__deleteComment,
+	__getComments,
+	__modifyComment,
+} from 'redux/modules/workout';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -131,11 +135,22 @@ const ConfirmBtn = styled(ModifyBtn)`
 
 const FanLetter = () => {
 	const dispatch = useDispatch();
-	const workoutData = useSelector((state) => state.workout.comments);
+	const navigate = useNavigate();
+
+	const { comments, isLoading } = useSelector((state) => state.workout);
+    const myUserId = useSelector((state) => state.auth.userId);
 	const { id } = useParams();
-	const filteredData = workoutData.filter((w) => w.id === id)[0];
+	
 	const [isModifyBtnClicked, setIsModifyBtnClicked] = useState(false);
-	const [modifyText, setModifyText] = useState(filteredData.content);
+	const [modifyText, setModifyText] = useState('');
+
+	useEffect(() => {
+		dispatch(__getComments());
+	}, [dispatch]);
+
+	const filteredData = comments.filter((w) => w.id === id)[0];
+    console.log(filteredData);
+	const isMine = myUserId === filteredData.userId;
 
 	const data = {
 		createdAt: filteredData.createdAt,
@@ -146,7 +161,7 @@ const FanLetter = () => {
 		id: filteredData.id,
 	};
 
-	const navigate = useNavigate();
+    
 
 	const navigateHandler = () => {
 		navigate('/');
@@ -222,16 +237,22 @@ const FanLetter = () => {
 						</ConfirmBtn>
 					</BtnsContainer>
 				) : (
-					<BtnsContainer>
-						<ModifyBtn onClick={modifyHandler}>수정</ModifyBtn>
-						<DeleteBtn
-							onClick={() =>
-								deleteWorkoutHandler(filteredData.id)
-							}
-						>
-							삭제
-						</DeleteBtn>
-					</BtnsContainer>
+					<>
+						{isMine && (
+							<BtnsContainer>
+								<ModifyBtn onClick={modifyHandler}>
+									수정
+								</ModifyBtn>
+								<DeleteBtn
+									onClick={() =>
+										deleteWorkoutHandler(filteredData.id)
+									}
+								>
+									삭제
+								</DeleteBtn>
+							</BtnsContainer>
+						)}
+					</>
 				)}
 			</ContentContainer>
 		</Container>

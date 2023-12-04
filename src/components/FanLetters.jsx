@@ -82,7 +82,7 @@ const FanLetters = () => {
 
 	useEffect(() => {
 		dispatch(__getComments());
-	}, []);
+	}, [dispatch]);
 
 	const nothing = `${menuWorkout}를 하고싶은 사람이 없어요!`;
 	return (

@@ -1,5 +1,4 @@
-import { authApi } from 'api/authApi';
-import axios from 'axios';
+import { authApi } from 'api/apis';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -125,10 +124,7 @@ const Register = () => {
 		};
 
 		try {
-			const { data } = await authApi.post(
-				'/register',
-				userInfo
-			);
+			const { data } = await authApi.post('/register', userInfo);
 
 			if (data.success) {
 				toast.success(data.message);

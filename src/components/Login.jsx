@@ -1,10 +1,7 @@
-import { authApi } from 'api/authApi';
-import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { authActions } from 'redux/modules/auth';
+import { __login } from 'redux/modules/auth';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -117,22 +114,7 @@ const Login = () => {
 			password,
 		};
 
-		try {
-			const { data } = await authApi.post(
-				'/login',
-				userInfo
-			);
-            
-			if (data.success) {
-				dispatch(authActions.login(data.accessToken));
-				toast.success('로그인되었습니다!');
-			}
-		} catch (error) {
-			const { response } = error;
-			const { data } = response;
-			const { message } = data;
-			toast.error(message);
-		}
+		dispatch(__login(userInfo));
 	};
 	return (
 		<Container>

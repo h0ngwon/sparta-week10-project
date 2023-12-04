@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { __getUserInfo, __modifyProfile } from 'redux/modules/user';
-import { __modifyCommentsUserInfo } from 'redux/modules/workout';
+import { __modifyProfile } from 'redux/modules/auth';
+import { __getUserInfo } from 'redux/modules/user';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -108,7 +108,7 @@ const CompleteModifyBtn = styled(ModifyBtn)``;
 
 const Profile = () => {
 	const dispatch = useDispatch();
-	const { nickname, id, avatar } = useSelector((state) => state.user);
+	const { nickname, id, avatar } = useSelector((state) => state.auth);
 	const [isModify, setIsModify] = useState(false);
 	const [modifyNickname, setModifyNickname] = useState(nickname);
 	const [preview, setPreview] = useState(localStorage.getItem('avatar'));
@@ -145,9 +145,6 @@ const Profile = () => {
 
 		dispatch(__modifyProfile(data));
 		toast.success('프로필 변경이 완료되었습니다');
-		dispatch(__modifyCommentsUserInfo());
-		localStorage.setItem('nickname', nickname);
-		localStorage.setItem('avatar', avatar);
 		setIsModify(false);
 	};
 
@@ -185,7 +182,10 @@ const Profile = () => {
 							<CancelModifyBtn onClick={cancelModifyBtnHandler}>
 								취소
 							</CancelModifyBtn>
-							<CompleteModifyBtn onClick={completeModifyHandler}>
+							<CompleteModifyBtn
+								onClick={completeModifyHandler}
+								disabled={!isModify && preview === avatar}
+							>
 								수정완료
 							</CompleteModifyBtn>
 						</ButtonsContainer>

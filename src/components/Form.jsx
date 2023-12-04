@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { __addComment, __getComments } from 'redux/modules/workout';
+import { __addComment } from 'redux/modules/workout';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 
@@ -97,8 +97,7 @@ const Btn = styled.button`
 
 const Form = () => {
 	const dispatch = useDispatch();
-    const {nickname, avatar} = useSelector(state => state.user);
-	const id = useSelector((state) => state.user.id);
+	const { nickname, avatar, userId } = useSelector((state) => state.auth);
 	const [content, setContent] = useState('');
 	const [workout, setWorkout] = useState('스쿼트');
 
@@ -116,11 +115,11 @@ const Form = () => {
 		const data = {
 			createdAt: new Date().toISOString(),
 			nickname,
-			avatar: avatar || 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
+			avatar,
 			content,
 			writedTo: workout,
 			id: uuid(),
-			userId: id,
+			userId,
 		};
 
 		if (content.trim() === '') {
@@ -129,7 +128,6 @@ const Form = () => {
 		}
 
 		dispatch(__addComment(data));
-        dispatch(__getComments());
 		setContent('');
 	};
 

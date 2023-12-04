@@ -1,13 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { jsonApi } from 'api/apis';
 import { toast } from 'react-toastify';
 
 //inital state
 
 const initialState = {
 	comments: [],
-	isLoading: false,
+	isLoading: true,
+	isError: false,
 	error: null,
+};
+
+const getCommentsfromDb = async () => {
+	const { data } = await jsonApi.get('/comments?_sort=createdAt&_order=desc');
+	return data;
 };
 
 export const toastError = (error) => {
@@ -21,10 +27,8 @@ export const __getComments = createAsyncThunk(
 	'workout/getComments',
 	async (_, thunkAPI) => {
 		try {
-			const res = await axios.get(
-				'http://localhost:4000/comments?_sort=createdAt&_order=desc'
-			);
-			return thunkAPI.fulfillWithValue(res.data);
+			const comments = getCommentsfromDb();
+			return comments;
 		} catch (error) {
 			toastError(error);
 			return thunkAPI.rejectWithValue(error);
@@ -36,11 +40,9 @@ export const __addComment = createAsyncThunk(
 	'workout/addComment',
 	async (payload, thunkAPI) => {
 		try {
-			const res = await axios.post(
-				'http://localhost:4000/comments',
-				payload
-			);
-			return thunkAPI.fulfillWithValue(res.data);
+			await jsonApi.post('/comments', payload);
+			const comments = getCommentsfromDb();
+			return comments;
 		} catch (error) {
 			toastError(error);
 			return thunkAPI.rejectWithValue(error);
@@ -50,12 +52,11 @@ export const __addComment = createAsyncThunk(
 
 export const __deleteComment = createAsyncThunk(
 	'workout/deleteComment',
-	async (payload, thunkAPI) => {
+	async (id, thunkAPI) => {
 		try {
-			const res = await axios.delete(
-				`http://localhost:4000/comments/${payload}`
-			);
-			return thunkAPI.fulfillWithValue(res.data);
+			await jsonApi.delete(`/comments/${id}`);
+			const comment = getCommentsfromDb();
+			return comment;
 		} catch (error) {
 			toastError(error);
 			return thunkAPI.rejectWithValue(error);
@@ -67,25 +68,11 @@ export const __modifyComment = createAsyncThunk(
 	'workout/modifyComment',
 	async (payload, thunkAPI) => {
 		try {
-			const res = await axios.patch(
-				`http://localhost:4000/comments/${payload.id}`,
-				payload
-			);
-			return thunkAPI.fulfillWithValue(res.data);
+			await jsonApi.patch(`/comments/${payload.id}`, payload);
+			const comment = getCommentsfromDb();
+			return comment;
 		} catch (error) {
 			toastError(error);
-			return thunkAPI.rejectWithValue(error);
-		}
-	}
-);
-
-export const __modifyCommentsUserInfo = createAsyncThunk(
-	'workout/modifyCommentsUserInfo',
-	async (_, thunkAPI) => {
-		try {
-			const res = await axios.get('http://localhost:4000/comments');
-			return thunkAPI.fulfillWithValue(res.data);
-		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
 		}
 	}
@@ -103,9 +90,12 @@ const workoutSlice = createSlice({
 			.addCase(__getComments.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.comments = action.payload;
+				state.isError = false;
+				state.error = null;
 			})
 			.addCase(__getComments.rejected, (state, action) => {
 				state.isLoading = false;
+				state.isError = true;
 				state.error = action.payload;
 			})
 			.addCase(__addComment.pending, (state, _) => {
@@ -113,44 +103,35 @@ const workoutSlice = createSlice({
 			})
 			.addCase(__addComment.fulfilled, (state, action) => {
 				state.isLoading = false;
-				state.comments.push(action.payload);
+				state.comments = action.payload;
+				state.isError = false;
+				state.error = false;
 			})
 			.addCase(__addComment.rejected, (state, action) => {
 				state.isLoading = false;
+				state.isError = true;
 				state.error = action.payload;
 			})
 			.addCase(__deleteComment.pending, (state, _) => {
-				state.isLoading = false;
+				state.isLoading = true;
 			})
 			.addCase(__deleteComment.fulfilled, (state, action) => {
-				state.comments = state.comments.filter(
-					(item) => item.id !== action.payload
-				);
+				state.isLoading = false;
+				state.comments = action.payload;
 			})
 			.addCase(__deleteComment.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.payload;
 			})
 			.addCase(__modifyComment.pending, (state, _) => {
-				state.isLoading = false;
+				state.isLoading = true;
 			})
 			.addCase(__modifyComment.fulfilled, (state, action) => {
-				const idx = state.comments.findIndex(
-					(item) => item.id === action.payload.id
-				);
-				state.comments = state.comments.splice(idx, 1, action.payload);
+				state.isLoading = false;
+				state.comments = action.payload;
 			})
 			.addCase(__modifyComment.rejected, (state, action) => {
 				state.isLoading = false;
-				state.error = action.payload;
-			})
-			.addCase(__modifyCommentsUserInfo.pending, (state, _) => {
-				state.isLoading = false;
-			})
-			.addCase(__modifyCommentsUserInfo.fulfilled, (state, action) => {
-				
-			})
-			.addCase(__modifyCommentsUserInfo.rejected, (state, action) => {
 				state.error = action.payload;
 			});
 	},

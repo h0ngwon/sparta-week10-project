@@ -37,7 +37,6 @@ const Nav = () => {
 	const navigate = useNavigate();
 	const logout = () => {
 		dispatch(authActions.logout());
-		navigate('/login');
 	};
 
 	return (
