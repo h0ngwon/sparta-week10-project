@@ -1,3 +1,8 @@
 import axios from 'axios';
 
-const authApi = axios
+export const authApi = axios.create({
+    baseURL: 'https://moneyfulpublicpolicy.co.kr',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})

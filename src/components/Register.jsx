@@ -1,3 +1,4 @@
+import { authApi } from 'api/authApi';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -124,8 +125,8 @@ const Register = () => {
 		};
 
 		try {
-			const { data } = await axios.post(
-				'https://moneyfulpublicpolicy.co.kr/register',
+			const { data } = await authApi.post(
+				'/register',
 				userInfo
 			);
 

@@ -1,3 +1,4 @@
+import { authApi } from 'api/authApi';
 import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -117,8 +118,8 @@ const Login = () => {
 		};
 
 		try {
-			const { data } = await axios.post(
-				'https://moneyfulpublicpolicy.co.kr/login',
+			const { data } = await authApi.post(
+				'/login',
 				userInfo
 			);
             

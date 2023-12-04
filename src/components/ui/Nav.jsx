@@ -36,10 +36,6 @@ const Nav = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const logout = () => {
-		localStorage.removeItem('accessToken');
-		localStorage.removeItem('avatar');
-		localStorage.removeItem('userId');
-        localStorage.removeItem('nickname');
 		dispatch(authActions.logout());
 		navigate('/login');
 	};
