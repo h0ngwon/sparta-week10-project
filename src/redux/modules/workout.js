@@ -42,7 +42,7 @@ export const __addComment = createAsyncThunk(
 			);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
-            toastError(error);
+			toastError(error);
 			return thunkAPI.rejectWithValue(error);
 		}
 	}
@@ -57,7 +57,7 @@ export const __deleteComment = createAsyncThunk(
 			);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
-            toastError(error)
+			toastError(error);
 			return thunkAPI.rejectWithValue(error);
 		}
 	}
@@ -73,7 +73,19 @@ export const __modifyComment = createAsyncThunk(
 			);
 			return thunkAPI.fulfillWithValue(res.data);
 		} catch (error) {
-            toastError(error);
+			toastError(error);
+			return thunkAPI.rejectWithValue(error);
+		}
+	}
+);
+
+export const __modifyCommentsUserInfo = createAsyncThunk(
+	'workout/modifyCommentsUserInfo',
+	async (_, thunkAPI) => {
+		try {
+			const res = await axios.get('http://localhost:4000/comments');
+			return thunkAPI.fulfillWithValue(res.data);
+		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
 		}
 	}
@@ -130,6 +142,15 @@ const workoutSlice = createSlice({
 			})
 			.addCase(__modifyComment.rejected, (state, action) => {
 				state.isLoading = false;
+				state.error = action.payload;
+			})
+			.addCase(__modifyCommentsUserInfo.pending, (state, _) => {
+				state.isLoading = false;
+			})
+			.addCase(__modifyCommentsUserInfo.fulfilled, (state, action) => {
+				
+			})
+			.addCase(__modifyCommentsUserInfo.rejected, (state, action) => {
 				state.error = action.payload;
 			});
 	},

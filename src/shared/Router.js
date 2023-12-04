@@ -1,8 +1,8 @@
-import Profile from 'components/Profile';
 import Layout from 'components/ui/Layout';
 import Detail from 'pages/Detail';
 import Home from 'pages/Home';
 import LoginPage from 'pages/LoginPage';
+import ProfilePage from 'pages/ProfilePage';
 import RegisterPage from 'pages/RegisterPage';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,7 +23,7 @@ const Router = () => {
 				<Route element={isLogin ? <Layout /> : <LoginPage />}>
 					<Route path='/' element={<Home />} />
 					<Route path='/detail/:id' element={<Detail />} />
-					<Route path='/profile' element={<Profile />} />
+					<Route path='/profile' element={<ProfilePage />} />
 				</Route>
 
 				<Route path='/login' element={<LoginPage />} />

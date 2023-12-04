@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { __getUserInfo, __modifyProfile } from 'redux/modules/user';
+import { __modifyCommentsUserInfo } from 'redux/modules/workout';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -110,16 +111,8 @@ const Profile = () => {
 	const { nickname, id, avatar } = useSelector((state) => state.user);
 	const [isModify, setIsModify] = useState(false);
 	const [modifyNickname, setModifyNickname] = useState(nickname);
-	const [preview, setPreview] = useState(
-		avatar
-			? avatar
-			: 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg'
-	);
-	const [file, setFile] = useState(
-		avatar
-			? avatar
-			: 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg'
-	);
+	const [preview, setPreview] = useState(localStorage.getItem('avatar'));
+	const [file, setFile] = useState(avatar);
 	const imageRef = useRef(null);
 
 	const onFileUpload = (e) => {
@@ -152,9 +145,15 @@ const Profile = () => {
 
 		dispatch(__modifyProfile(data));
 		toast.success('프로필 변경이 완료되었습니다');
-		dispatch(__getUserInfo());
+		dispatch(__modifyCommentsUserInfo());
+		localStorage.setItem('nickname', nickname);
+		localStorage.setItem('avatar', avatar);
 		setIsModify(false);
 	};
+
+	useEffect(() => {
+		dispatch(__getUserInfo());
+	}, []);
 
 	return (
 		<Container>

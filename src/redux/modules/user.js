@@ -58,29 +58,29 @@ export const __modifyProfile = createAsyncThunk(
 const user = createSlice({
 	name: 'user',
 	initialState,
-	reducers: {
-	},
+	reducers: {},
 
 	extraReducers: (builder) => {
 		builder
 			.addCase(__getUserInfo.pending, (state, _) => {
 				state.isLoading = true;
 			})
-            .addCase(__getUserInfo.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.avatar = action.payload.avatar;
-                state.nickname = action.payload.nickname;
-                state.id = action.payload.id;
-            })
-            .addCase(__getUserInfo.rejected, (state, action) => {
-                state.error = action.payload;
-            })
+			.addCase(__getUserInfo.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.avatar = action.payload.avatar;
+				state.nickname = action.payload.nickname;
+				state.id = action.payload.id;
+			})
+			.addCase(__getUserInfo.rejected, (state, action) => {
+				state.error = action.payload;
+			})
 			.addCase(__modifyProfile.pending, (state, _) => {
 				state.isLoading = true;
 			})
 			.addCase(__modifyProfile.fulfilled, (state, action) => {
 				state.nickname = action.payload.nickname;
 				state.avatar = action.payload.avatar;
+				
 			})
 			.addCase(__modifyProfile.rejected, (state, action) => {
 				state.error = action.payload;
