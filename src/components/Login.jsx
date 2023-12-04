@@ -95,7 +95,6 @@ const RegisterNav = styled.div`
 `;
 
 const Login = () => {
-	const repository = localStorage;
 	const [id, setId] = useState('');
 	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
@@ -118,15 +117,15 @@ const Login = () => {
 		};
 
 		try {
-			await axios
-				.post('https://moneyfulpublicpolicy.co.kr/login', userInfo)
-				.then((res) => {
-					repository.removeItem('accessToken');
-					repository.setItem('accessToken', res.data.accessToken);
-					dispatch(authActions.login());
-                    toast.success('로그인되었습니다!');
-					navigate('/');
-				});
+			const { data } = await axios.post(
+				'https://moneyfulpublicpolicy.co.kr/login',
+				userInfo
+			);
+            
+			if (data.success) {
+				dispatch(authActions.login(data.accessToken));
+				toast.success('로그인되었습니다!');
+			}
 		} catch (error) {
 			const { response } = error;
 			const { data } = response;

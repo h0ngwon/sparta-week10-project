@@ -136,7 +136,6 @@ const FanLetter = () => {
 	const filteredData = workoutData.filter((w) => w.id === id)[0];
 	const [isModifyBtnClicked, setIsModifyBtnClicked] = useState(false);
 	const [modifyText, setModifyText] = useState(filteredData.content);
-    const userId = useSelector(state => state.user.id);
 
 	const data = {
 		createdAt: filteredData.createdAt,

@@ -6,7 +6,7 @@ import ProfilePage from 'pages/ProfilePage';
 import RegisterPage from 'pages/RegisterPage';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { authActions } from 'redux/modules/auth';
 
 const Router = () => {
@@ -20,14 +20,28 @@ const Router = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route element={isLogin ? <Layout /> : <LoginPage />}>
-					<Route path='/' element={<Home />} />
-					<Route path='/detail/:id' element={<Detail />} />
-					<Route path='/profile' element={<ProfilePage />} />
-				</Route>
-
-				<Route path='/login' element={<LoginPage />} />
-				<Route path='/register' element={<RegisterPage />} />
+				{isLogin ? (
+					<>
+						<Route element={<Layout />}>
+							<Route path='/' element={<Home />} />
+							<Route path='/detail/:id' element={<Detail />} />
+							<Route path='/profile' element={<ProfilePage />} />
+							<Route
+								path='*'
+								element={<Navigate replace to='/' />}
+							/>
+						</Route>
+					</>
+				) : (
+					<>
+						<Route path='/login' element={<LoginPage />} />
+						<Route path='/register' element={<RegisterPage />} />
+						<Route
+							path='*'
+							element={<Navigate replace to='/login' />}
+						/>
+					</>
+				)}
 			</Routes>
 		</BrowserRouter>
 	);

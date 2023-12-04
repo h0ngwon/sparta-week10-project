@@ -128,8 +128,11 @@ const Register = () => {
 				'https://moneyfulpublicpolicy.co.kr/register',
 				userInfo
 			);
-			toast.success(data.message);
-			navigate('/login');
+
+			if (data.success) {
+				toast.success(data.message);
+				navigate('/login');
+			}
 		} catch (error) {
 			const { response } = error;
 			const { data } = response;
